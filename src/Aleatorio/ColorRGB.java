@@ -52,6 +52,7 @@ public class ColorRGB {
 	 */
 	public ColorRGB() {
 		initialize();
+		CambiarColor();
 	}
 
 	public void CambiarColor() {
