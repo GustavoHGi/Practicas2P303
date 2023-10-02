@@ -24,6 +24,7 @@ public class ColorRGB {
 	int r=0;
 	int v=0;
 	int a=0;
+	String colorHexadecimal;
 	private JSlider sliderA;
 	private JSlider sliderV;
 	private JSlider sliderR;
@@ -57,7 +58,9 @@ public class ColorRGB {
 		lblRc.setText(""+r);
 		lblVc.setText(""+v);
 		lblAc.setText(""+a);
-		lblValorRGB.setText("RGB("+r+","+v+","+a+")");
+		colorHexadecimal = String.format("#%02X%02X%02X", r, v, a);
+		lblValorRGB.setText("HexadeCimal"+colorHexadecimal);
+		
 		lblRelleno.setBackground(new Color(r,v,a));
 		}
 	/**
@@ -67,7 +70,7 @@ public class ColorRGB {
 		frmColoresRgb = new JFrame();
 		frmColoresRgb.setIconImage(Toolkit.getDefaultToolkit().getImage(ColorRGB.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
 		frmColoresRgb.setTitle("COLORES RGB");
-		frmColoresRgb.setBounds(100, 100, 490, 321);
+		frmColoresRgb.setBounds(100, 100, 490, 394);
 		frmColoresRgb.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmColoresRgb.getContentPane().setLayout(null);
 		frmColoresRgb.setLocationRelativeTo(null);
@@ -89,7 +92,7 @@ public class ColorRGB {
 		
 		lblValorRGB = new JLabel("");
 		lblValorRGB.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
-		lblValorRGB.setBounds(119, 196, 253, 65);
+		lblValorRGB.setBounds(119, 196, 253, 85);
 		frmColoresRgb.getContentPane().add(lblValorRGB);
 		
 		lblRelleno = new JLabel("");
@@ -128,7 +131,7 @@ public class ColorRGB {
 		sliderV.setMaximum(255);
 		sliderV.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				v=sliderR.getValue();
+				v=sliderV.getValue();
 				CambiarColor();
 }
 		});
@@ -139,7 +142,7 @@ public class ColorRGB {
 		sliderA.setMaximum(255);
 		sliderA.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				a=sliderR.getValue();
+				a=sliderA.getValue();
 				CambiarColor();
 			}
 		});
