@@ -322,7 +322,7 @@ public class Pizzeria {
 				Precioa=0;
 				Preciob=0;
 				Precioc=0;
-				Preciod=0;s
+				Preciod=0;
 				total=0;
 				Cantidad=1;
 				precioPizza=0;
