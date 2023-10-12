@@ -333,12 +333,12 @@ public class WindowAlumno {
 				x.setApellidom(textAm.getText());
 				x.setApellidop(textAp.getText());
 				x.setCurp(textCurp.getText());
-				x.setNombre(textFn.getText());
-				x.setNombre(textDic.getText());
-				x.setNombre(textTel.getText());
-				x.setNombre(textCorreo.getText());
-				x.setNombre(textGrup.getText());
-				x.setNombre(textCarre.getText());
+				x.setFecha(textFn.getText());
+				x.setDireccion(textDic.getText());
+				x.setTelefono(textTel.getText());
+				x.setCorreo(textCorreo.getText());
+				x.setGrupo(textGrup.getText());
+				x.setCarrea(textCarre.getText());
 				if(x.insertarAlumno()) {
 					JOptionPane.showMessageDialog(null,"Se Inserto Correctamente");
 				}else {
@@ -351,11 +351,32 @@ public class WindowAlumno {
 		frmFormularioAlumno.getContentPane().add(btnAgregar);
 		
 		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textNc.setText("");
+				textnom.setText("");
+				textAm.setText("");
+				textAp.setText("");
+				textCurp.setText("");
+				textFn.setText("");
+				textDic.setText("");
+				textTel.setText("");
+				textCorreo.setText("");
+				textGrup.setText("");
+				textCarre.setText("");
+			}
+		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnBorrar.setBounds(486, 227, 157, 33);
 		frmFormularioAlumno.getContentPane().add(btnBorrar);
 		
 		JButton btnBorrartabla = new JButton("BorrarTabla");
+		btnBorrartabla.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listaPokemones.clear();
+				actualizarTabla();
+			}
+		});
 		btnBorrartabla.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnBorrartabla.setBounds(876, 227, 157, 33);
 		frmFormularioAlumno.getContentPane().add(btnBorrartabla);
