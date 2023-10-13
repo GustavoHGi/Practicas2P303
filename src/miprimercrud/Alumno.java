@@ -15,6 +15,14 @@ String grupo;
 String carrea;
 DataAlumno da=new DataAlumno();
 
+public boolean insertarAlumno() {
+	if(da.insertarAlumno(this)) {
+		return true;
+	}else {
+		return false;
+	}
+	
+}
 
 
 public Alumno() {
@@ -157,14 +165,7 @@ public void setCarrea(String carrea) {
 	this.carrea = carrea;
 }
 
-public boolean insertarAlumno() {
-	if(da.insertarAlumno(this)) {
-		return true;
-	}else {
-		return false;
-	}
-	
-}
+
 
 
 

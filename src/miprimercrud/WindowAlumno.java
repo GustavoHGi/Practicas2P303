@@ -25,28 +25,29 @@ import java.awt.event.ActionEvent;
 
 public class WindowAlumno {
 
-	public JFrame frmFormularioAlumno;
-	public DefaultTableModel modelo=new DefaultTableModel();
-	 public ArrayList<Alumno>listaPokemones=new ArrayList<Alumno>();
-	private JTextField textNc;
-	private JTextField textnom;
-	private JTextField textAm;
-	private JTextField textAp;
-	private JTextField textCurp;
-	private JTextField textFn;
-	private JTextField textDic;
-	private JTextField textTel;
-	private JTextField textCorreo;
-	private JTextField textGrup;
-	private JTextField textCarre;
-	private JTable tbA;
+	public JFrame frmCrudAlumno;
+	public DefaultTableModel modelo = new DefaultTableModel();
+	public ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
+	private JTextField txtNumControl;
+	private JTextField txtNombre;
+	private JTextField txtApellidoM;
+	private JTextField txtApellidoP;
+	private JTextField txtCURP;
+	private JTextField txtFeachaNac;
+	private JTextField txtDirrecion;
+	private JTextField txtTelefono;
+	private JTextField txtCorreo;
+	private JTextField txtGrupo;
+	private JTextField txtCarrera;
+	private JTable tblAlumnos;
+	private JLabel lblNumControl;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		WindowAlumno window = new WindowAlumno();
-		window.frmFormularioAlumno.setVisible(true);
+		window.frmCrudAlumno.setVisible(true);
 	}
 
 	/**
@@ -54,260 +55,261 @@ public class WindowAlumno {
 	 */
 	public WindowAlumno() {
 		initialize();
-		
+
 	}
 
 	public void borrarTabla() {
-		listaPokemones.clear();
+		listaAlumnos.clear();
 		actualizarTabla();
 	}
+
 	public void actualizarTabla() {
-		while (modelo.getRowCount()>0) {
+		while (modelo.getRowCount() > 0) {
 			modelo.removeRow(0);
 		}
-		for(Alumno pokemon:listaPokemones) {
-			Object o[]=new Object[12];
-			o[0]=pokemon.getId();
-			o[1]=pokemon.getNumcontrol();
-			o[2]=pokemon.getNombre();
-			o[3]=pokemon.getApellidom();
-			o[4]=pokemon.getApellidop();
-			o[5]=pokemon.getCurp();
-			o[6]=pokemon.getFecha();
-			o[7]=pokemon.getDireccion();
-			o[8]=pokemon.getTelefono();
-			o[9]=pokemon.getCorreo();
-			o[10]=pokemon.getGrupo();
-			o[11]=pokemon.getCarrea();
-			
-					
-					
-			
+		for (Alumno Alumnoss : listaAlumnos) {
+			Object o[] = new Object[12];
+			o[0] = Alumnoss.getId();
+			o[1] = Alumnoss.getNumcontrol();
+			o[2] = Alumnoss.getNombre();
+			o[3] = Alumnoss.getApellidom();
+			o[4] = Alumnoss.getApellidop();
+			o[5] = Alumnoss.getCurp();
+			o[6] = Alumnoss.getFecha();
+			o[7] = Alumnoss.getDireccion();
+			o[8] = Alumnoss.getTelefono();
+			o[9] = Alumnoss.getCorreo();
+			o[10] = Alumnoss.getGrupo();
+			o[11] = Alumnoss.getCarrea();
+
 			modelo.addRow(o);
-			
+
 		}
-		tbA.setModel(modelo);
+		tblAlumnos.setModel(modelo);
 	}
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmFormularioAlumno = new JFrame();
-		frmFormularioAlumno.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
-		frmFormularioAlumno.setTitle("Formulario Alumno");
-		frmFormularioAlumno.setBounds(100, 100, 1322, 682);
-		frmFormularioAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmFormularioAlumno.getContentPane().setLayout(null);
-		frmFormularioAlumno.setLocationRelativeTo(null);
-		
-		JLabel lblNewLabel = new JLabel("Numero de control");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(23, 102, 158, 33);
-		frmFormularioAlumno.getContentPane().add(lblNewLabel);
-		
+		frmCrudAlumno = new JFrame();
+		frmCrudAlumno.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
+		frmCrudAlumno.setTitle("Formulario Alumno");
+		frmCrudAlumno.setBounds(100, 100, 1322, 682);
+		frmCrudAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCrudAlumno.getContentPane().setLayout(null);
+		frmCrudAlumno.setLocationRelativeTo(null);
+
+		lblNumControl = new JLabel("Numero de control");
+		lblNumControl.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNumControl.setBounds(23, 102, 158, 33);
+		frmCrudAlumno.getContentPane().add(lblNumControl);
+
 		JLabel lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNombre.setBounds(242, 30, 72, 33);
-		frmFormularioAlumno.getContentPane().add(lblNombre);
-		
+		frmCrudAlumno.getContentPane().add(lblNombre);
+
 		JLabel lblId = new JLabel("Id");
 		lblId.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblId.setBounds(62, 30, 40, 33);
-		frmFormularioAlumno.getContentPane().add(lblId);
-		
+		frmCrudAlumno.getContentPane().add(lblId);
+
 		JLabel lblApellidoM = new JLabel("Apellido M");
 		lblApellidoM.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblApellidoM.setBounds(242, 102, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblApellidoM);
-		
+		frmCrudAlumno.getContentPane().add(lblApellidoM);
+
 		JLabel lblApellidoP = new JLabel("Apellido P");
 		lblApellidoP.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblApellidoP.setBounds(422, 30, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblApellidoP);
-		
+		frmCrudAlumno.getContentPane().add(lblApellidoP);
+
 		JLabel lblCurp = new JLabel("curp");
 		lblCurp.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCurp.setBounds(437, 102, 48, 33);
-		frmFormularioAlumno.getContentPane().add(lblCurp);
-		
+		frmCrudAlumno.getContentPane().add(lblCurp);
+
 		JLabel lblFechaDeNacimiento = new JLabel("fecha de nacimiento");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblFechaDeNacimiento.setBounds(583, 30, 154, 33);
-		frmFormularioAlumno.getContentPane().add(lblFechaDeNacimiento);
-		
+		frmCrudAlumno.getContentPane().add(lblFechaDeNacimiento);
+
 		JLabel lblDireccion = new JLabel("Direccion");
 		lblDireccion.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblDireccion.setBounds(608, 102, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblDireccion);
-		
+		frmCrudAlumno.getContentPane().add(lblDireccion);
+
 		JLabel lblTelefono = new JLabel("Telefono");
 		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTelefono.setBounds(831, 30, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblTelefono);
-		
+		frmCrudAlumno.getContentPane().add(lblTelefono);
+
 		JLabel lblCorreo = new JLabel("Correo");
 		lblCorreo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCorreo.setBounds(831, 102, 65, 33);
-		frmFormularioAlumno.getContentPane().add(lblCorreo);
-		
+		frmCrudAlumno.getContentPane().add(lblCorreo);
+
 		JLabel lblGrupo = new JLabel("Grupo");
 		lblGrupo.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGrupo.setBounds(1045, 30, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblGrupo);
-		
+		frmCrudAlumno.getContentPane().add(lblGrupo);
+
 		JLabel lblCarrera = new JLabel("Carrera");
 		lblCarrera.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblCarrera.setBounds(1045, 102, 88, 33);
-		frmFormularioAlumno.getContentPane().add(lblCarrera);
-		
-		textNc = new JTextField();
-		textNc.addKeyListener(new KeyAdapter() {
+		frmCrudAlumno.getContentPane().add(lblCarrera);
+
+		txtNumControl = new JTextField();
+		txtNumControl.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textNc.getText().length()>=14) {
-					e.consume();				}
-			}
-		});
-		textNc.setBounds(23, 160, 128, 19);
-		frmFormularioAlumno.getContentPane().add(textNc);
-		textNc.setColumns(10);
-		
-		textnom = new JTextField();
-		textnom.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if(textnom.getText().length()>=30) {
+				if (txtNumControl.getText().length() >= 14) {
 					e.consume();
 				}
 			}
 		});
-		textnom.setBounds(218, 73, 145, 19);
-		frmFormularioAlumno.getContentPane().add(textnom);
-		textnom.setColumns(10);
-		
-		textAm = new JTextField();
-		textAm.addKeyListener(new KeyAdapter() {
+		txtNumControl.setBounds(23, 160, 128, 19);
+		frmCrudAlumno.getContentPane().add(txtNumControl);
+		txtNumControl.setColumns(10);
+
+		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textAm.getText().length()>=30) {
+				if (txtNombre.getText().length() >= 30) {
 					e.consume();
 				}
 			}
 		});
-		textAm.setBounds(218, 160, 145, 19);
-		frmFormularioAlumno.getContentPane().add(textAm);
-		textAm.setColumns(10);
-		
-		textAp = new JTextField();
-		textAp.addKeyListener(new KeyAdapter() {
+		txtNombre.setBounds(218, 73, 145, 19);
+		frmCrudAlumno.getContentPane().add(txtNombre);
+		txtNombre.setColumns(10);
+
+		txtApellidoM = new JTextField();
+		txtApellidoM.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textAp.getText().length()>=30) {
+				if (txtApellidoM.getText().length() >= 30) {
 					e.consume();
 				}
 			}
 		});
-		textAp.setBounds(407, 73, 135, 19);
-		frmFormularioAlumno.getContentPane().add(textAp);
-		textAp.setColumns(10);
-		
-		textCurp = new JTextField();
-		textCurp.addKeyListener(new KeyAdapter() {
+		txtApellidoM.setBounds(218, 160, 145, 19);
+		frmCrudAlumno.getContentPane().add(txtApellidoM);
+		txtApellidoM.setColumns(10);
+
+		txtApellidoP = new JTextField();
+		txtApellidoP.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textCurp.getText().length()>=18) {
+				if (txtApellidoP.getText().length() >= 30) {
 					e.consume();
 				}
 			}
 		});
-		textCurp.setColumns(10);
-		textCurp.setBounds(407, 160, 135, 19);
-		frmFormularioAlumno.getContentPane().add(textCurp);
-		
-		textFn = new JTextField();
-		textFn.addKeyListener(new KeyAdapter() {
+		txtApellidoP.setBounds(407, 73, 135, 19);
+		frmCrudAlumno.getContentPane().add(txtApellidoP);
+		txtApellidoP.setColumns(10);
+
+		txtCURP = new JTextField();
+		txtCURP.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textFn.getText().length()>=100) {
+				if (txtCURP.getText().length() >= 18) {
 					e.consume();
 				}
 			}
 		});
-		textFn.setColumns(10);
-		textFn.setBounds(583, 73, 154, 19);
-		frmFormularioAlumno.getContentPane().add(textFn);
-		
-		textDic = new JTextField();
-		textDic.addKeyListener(new KeyAdapter() {
+		txtCURP.setColumns(10);
+		txtCURP.setBounds(407, 160, 135, 19);
+		frmCrudAlumno.getContentPane().add(txtCURP);
+
+		txtFeachaNac = new JTextField();
+		txtFeachaNac.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textDic.getText().length()>=100) {
+				if (txtFeachaNac.getText().length() >= 100) {
 					e.consume();
 				}
 			}
 		});
-		textDic.setColumns(10);
-		textDic.setBounds(583, 160, 154, 19);
-		frmFormularioAlumno.getContentPane().add(textDic);
-		
-		textTel = new JTextField();
-		textTel.addKeyListener(new KeyAdapter() {
+		txtFeachaNac.setColumns(10);
+		txtFeachaNac.setBounds(583, 73, 154, 19);
+		frmCrudAlumno.getContentPane().add(txtFeachaNac);
+
+		txtDirrecion = new JTextField();
+		txtDirrecion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textTel.getText().length()>=10) {
+				if (txtDirrecion.getText().length() >= 100) {
 					e.consume();
 				}
 			}
 		});
-		textTel.setColumns(10);
-		textTel.setBounds(796, 73, 154, 19);
-		frmFormularioAlumno.getContentPane().add(textTel);
-		
-		textCorreo = new JTextField();
-		textCorreo.addKeyListener(new KeyAdapter() {
+		txtDirrecion.setColumns(10);
+		txtDirrecion.setBounds(583, 160, 154, 19);
+		frmCrudAlumno.getContentPane().add(txtDirrecion);
+
+		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textCorreo.getText().length()>=100) {
+				if (txtTelefono.getText().length() >= 10) {
 					e.consume();
 				}
 			}
 		});
-		textCorreo.setColumns(10);
-		textCorreo.setBounds(796, 160, 154, 19);
-		frmFormularioAlumno.getContentPane().add(textCorreo);
-		
-		textGrup = new JTextField();
-		textGrup.addKeyListener(new KeyAdapter() {
+		txtTelefono.setColumns(10);
+		txtTelefono.setBounds(796, 73, 154, 19);
+		frmCrudAlumno.getContentPane().add(txtTelefono);
+
+		txtCorreo = new JTextField();
+		txtCorreo.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textGrup.getText().length()>=50) {
+				if (txtCorreo.getText().length() >= 100) {
 					e.consume();
 				}
 			}
 		});
-		textGrup.setColumns(10);
-		textGrup.setBounds(990, 73, 178, 19);
-		frmFormularioAlumno.getContentPane().add(textGrup);
-		
-		textCarre = new JTextField();
-		textCarre.addKeyListener(new KeyAdapter() {
+		txtCorreo.setColumns(10);
+		txtCorreo.setBounds(796, 160, 154, 19);
+		frmCrudAlumno.getContentPane().add(txtCorreo);
+
+		txtGrupo = new JTextField();
+		txtGrupo.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
-				if(textCarre.getText().length()>=50) {
+				if (txtGrupo.getText().length() >= 50) {
 					e.consume();
 				}
 			}
 		});
-		textCarre.setColumns(10);
-		textCarre.setBounds(990, 160, 178, 19);
-		frmFormularioAlumno.getContentPane().add(textCarre);
-		
+		txtGrupo.setColumns(10);
+		txtGrupo.setBounds(990, 73, 178, 19);
+		frmCrudAlumno.getContentPane().add(txtGrupo);
+
+		txtCarrera = new JTextField();
+		txtCarrera.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (txtCarrera.getText().length() >= 50) {
+					e.consume();
+				}
+			}
+		});
+		txtCarrera.setColumns(10);
+		txtCarrera.setBounds(990, 160, 178, 19);
+		frmCrudAlumno.getContentPane().add(txtCarrera);
+
 		JScrollPane TablaExel = new JScrollPane();
 		TablaExel.setBounds(118, 304, 965, 301);
-		frmFormularioAlumno.getContentPane().add(TablaExel);
-		
-		tbA = new JTable();
-		TablaExel.setViewportView(tbA);
+		frmCrudAlumno.getContentPane().add(TablaExel);
+
+		tblAlumnos = new JTable();
+		TablaExel.setViewportView(tblAlumnos);
 		modelo.addColumn("id");
 		modelo.addColumn("Numero de Control");
 		modelo.addColumn("Nombre");
@@ -320,70 +322,76 @@ public class WindowAlumno {
 		modelo.addColumn("Correo");
 		modelo.addColumn("Grupo");
 		modelo.addColumn("Carrera");
-		tbA.setModel(modelo);
-		
-		
-		
+		tblAlumnos.setModel(modelo);
+
 		JButton btnAgregar = new JButton("AGREGAR");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Alumno x=new Alumno();
-				x.setNumcontrol(textNc.getText());
-				x.setNombre(textnom.getText());
-				x.setApellidom(textAm.getText());
-				x.setApellidop(textAp.getText());
-				x.setCurp(textCurp.getText());
-				x.setFecha(textFn.getText());
-				x.setDireccion(textDic.getText());
-				x.setTelefono(textTel.getText());
-				x.setCorreo(textCorreo.getText());
-				x.setGrupo(textGrup.getText());
-				x.setCarrea(textCarre.getText());
-				if(x.insertarAlumno()) {
-					JOptionPane.showMessageDialog(null,"Se Inserto Correctamente");
-				}else {
-					JOptionPane.showMessageDialog(null,"Error");
+				try {
+					Alumno x = new Alumno();
+					x.setNumcontrol(txtNumControl.getText());
+					x.setNombre(txtNombre.getText());
+					x.setApellidom(txtApellidoM.getText());
+					x.setApellidop(txtApellidoP.getText());
+					x.setCurp(txtCURP.getText());
+					x.setFecha(txtFeachaNac.getText());
+					x.setDireccion(txtDirrecion.getText());
+					x.setTelefono(txtTelefono.getText());
+					x.setCorreo(txtCorreo.getText());
+					x.setGrupo(txtGrupo.getText());
+					x.setCarrea(txtCarrera.getText());
+					listaAlumnos.add(x);
+					actualizarTabla();
+					if (x.insertarAlumno()) {
+						JOptionPane.showMessageDialog(null, "Se Inserto Correctamente");
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Error");
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Error");
 				}
+
 			}
 		});
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnAgregar.setBounds(129, 227, 157, 33);
-		frmFormularioAlumno.getContentPane().add(btnAgregar);
-		
+		frmCrudAlumno.getContentPane().add(btnAgregar);
+
 		JButton btnBorrar = new JButton("Borrar");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textNc.setText("");
-				textnom.setText("");
-				textAm.setText("");
-				textAp.setText("");
-				textCurp.setText("");
-				textFn.setText("");
-				textDic.setText("");
-				textTel.setText("");
-				textCorreo.setText("");
-				textGrup.setText("");
-				textCarre.setText("");
+				txtNumControl.setText("");
+				txtNombre.setText("");
+				txtApellidoM.setText("");
+				txtApellidoP.setText("");
+				txtCURP.setText("");
+				txtFeachaNac.setText("");
+				txtDirrecion.setText("");
+				txtTelefono.setText("");
+				txtCorreo.setText("");
+				txtGrupo.setText("");
+				txtCarrera.setText("");
 			}
 		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnBorrar.setBounds(486, 227, 157, 33);
-		frmFormularioAlumno.getContentPane().add(btnBorrar);
-		
+		frmCrudAlumno.getContentPane().add(btnBorrar);
+
 		JButton btnBorrartabla = new JButton("BorrarTabla");
 		btnBorrartabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listaPokemones.clear();
+				listaAlumnos.clear();
 				actualizarTabla();
 			}
 		});
 		btnBorrartabla.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnBorrartabla.setBounds(876, 227, 157, 33);
-		frmFormularioAlumno.getContentPane().add(btnBorrartabla);
-		
-		JLabel lblId_1 = new JLabel("Id");
-		lblId_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblId_1.setBounds(62, 76, 40, 33);
-		frmFormularioAlumno.getContentPane().add(lblId_1);
+		frmCrudAlumno.getContentPane().add(btnBorrartabla);
+
+		JLabel lblID = new JLabel("Id");
+		lblID.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblID.setBounds(62, 76, 40, 33);
+		frmCrudAlumno.getContentPane().add(lblID);
 	}
 }
