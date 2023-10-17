@@ -1,9 +1,12 @@
 package miprimercrud;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DataAlumno {
 	Connection cx;
@@ -44,9 +47,40 @@ public boolean insertarAlumno(Alumno a) {
 	ps.setString(10,a.getGrupo());
 	ps.setString(11,a.getCarrea());
 	ps.execute();
+	return true;
 }catch (SQLException e) {
 	e.printStackTrace();
-}
 	return false;
+}
+	
+}
+
+
+public ArrayList<Alumno> selctAlumnos(){
+	ArrayList<Alumno> listaAlumno=new ArrayList<Alumno>();
+	try {
+		PreparedStatement ps=conectar().prepareStatement("SELECT * From ALUMNO");
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()) {
+			Alumno x = new Alumno();
+			x.setId(rs.getInt(1));
+			x.setNumcontrol(rs.getString(2));
+			x.setNombre(rs.getString(3));
+			x.setApellidom(rs.getString(4));
+			x.setApellidop(rs.getString(5));
+			x.setFecha(rs.getString(6));
+			x.setCurp(rs.getString(7));
+			x.setDireccion(rs.getString(8));
+			x.setTelefono(rs.getString(9));
+			x.setCorreo(rs.getString(10));
+			x.setGrupo(rs.getString(11));
+			x.setCarrea(rs.getString(12));
+			listaAlumno.add(x);
+		}
+	} catch (SQLException e) {
+	
+		e.printStackTrace();
+	}
+	return listaAlumno;
 }
 }

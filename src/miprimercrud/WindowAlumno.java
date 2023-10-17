@@ -15,7 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Tabla.Pokemon;
+import java.awt.Container;
+
 
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
@@ -27,7 +28,6 @@ public class WindowAlumno {
 
 	public JFrame frmCrudAlumno;
 	public DefaultTableModel modelo = new DefaultTableModel();
-	public ArrayList<Alumno> listaAlumnos = new ArrayList<Alumno>();
 	private JTextField txtNumControl;
 	private JTextField txtNombre;
 	private JTextField txtApellidoM;
@@ -41,6 +41,11 @@ public class WindowAlumno {
 	private JTextField txtCarrera;
 	private JTable tblAlumnos;
 	private JLabel lblNumControl;
+	private JScrollPane TablaExel;
+	private JButton btnBorrar;
+	private JButton btnAgregar;
+	private JButton btnBorrartabla;
+	ArrayList<Alumno>listaAlumnos=null;
 
 	/**
 	 * Launch the application.
@@ -55,18 +60,18 @@ public class WindowAlumno {
 	 */
 	public WindowAlumno() {
 		initialize();
-
-	}
-
-	public void borrarTabla() {
-		listaAlumnos.clear();
 		actualizarTabla();
 	}
 
+	
+
 	public void actualizarTabla() {
+		DataAlumno da=new DataAlumno();
+		
 		while (modelo.getRowCount() > 0) {
 			modelo.removeRow(0);
 		}
+		listaAlumnos=da.selctAlumnos();
 		for (Alumno Alumnoss : listaAlumnos) {
 			Object o[] = new Object[12];
 			o[0] = Alumnoss.getId();
@@ -88,13 +93,10 @@ public class WindowAlumno {
 		tblAlumnos.setModel(modelo);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frmCrudAlumno = new JFrame();
-		frmCrudAlumno.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
+		frmCrudAlumno.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
 		frmCrudAlumno.setTitle("Formulario Alumno");
 		frmCrudAlumno.setBounds(100, 100, 1322, 682);
 		frmCrudAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -304,11 +306,12 @@ public class WindowAlumno {
 		txtCarrera.setBounds(990, 160, 178, 19);
 		frmCrudAlumno.getContentPane().add(txtCarrera);
 
-		JScrollPane TablaExel = new JScrollPane();
+		TablaExel = new JScrollPane();
 		TablaExel.setBounds(118, 304, 965, 301);
 		frmCrudAlumno.getContentPane().add(TablaExel);
 
 		tblAlumnos = new JTable();
+		actualizarTabla();
 		TablaExel.setViewportView(tblAlumnos);
 		modelo.addColumn("id");
 		modelo.addColumn("Numero de Control");
@@ -323,11 +326,13 @@ public class WindowAlumno {
 		modelo.addColumn("Grupo");
 		modelo.addColumn("Carrera");
 		tblAlumnos.setModel(modelo);
+		actualizarTabla();
+		TablaExel.setViewportView(tblAlumnos);
 
-		JButton btnAgregar = new JButton("AGREGAR");
+		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
+				
 					Alumno x = new Alumno();
 					x.setNumcontrol(txtNumControl.getText());
 					x.setNombre(txtNombre.getText());
@@ -340,25 +345,25 @@ public class WindowAlumno {
 					x.setCorreo(txtCorreo.getText());
 					x.setGrupo(txtGrupo.getText());
 					x.setCarrea(txtCarrera.getText());
-					listaAlumnos.add(x);
-					actualizarTabla();
+					
+					
 					if (x.insertarAlumno()) {
 						JOptionPane.showMessageDialog(null, "Se Inserto Correctamente");
+						actualizarTabla();
 
 					} else {
 						JOptionPane.showMessageDialog(null, "Error");
 					}
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Error");
+				
 				}
 
-			}
+			
 		});
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnAgregar.setBounds(129, 227, 157, 33);
 		frmCrudAlumno.getContentPane().add(btnAgregar);
 
-		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("Borrar");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtNumControl.setText("");
@@ -378,10 +383,10 @@ public class WindowAlumno {
 		btnBorrar.setBounds(486, 227, 157, 33);
 		frmCrudAlumno.getContentPane().add(btnBorrar);
 
-		JButton btnBorrartabla = new JButton("BorrarTabla");
+		btnBorrartabla = new JButton("BorrarTabla");
 		btnBorrartabla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listaAlumnos.clear();
+				
 				actualizarTabla();
 			}
 		});
