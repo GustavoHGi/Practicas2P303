@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;
 import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
 
 public class POLLOS {
 
@@ -26,15 +27,13 @@ public class POLLOS {
 	private JTextField txtCantidad;
 	private JLabel lblTipoDePollo;
 	private JLabel lblTotal;
-	private JRadioButton rdbtnRanchero;
+	private JRadioButton rdbRanchero;
 	private JRadioButton rdbRostizado;
 	String Tipo;
 	int Total=0;
 	int Precio=0;
 	private JLabel lblTipoDePollo_1;
-	private JLabel lblPrecioDeLos;
-	private JLabel lblPolloRostizado;
-	private JLabel lblPolloRanchero;
+	private JTextPane txtpnPrecio;
 	
 
 	/**
@@ -125,42 +124,33 @@ public class POLLOS {
 		rdbRostizado.setBounds(78, 184, 152, 21);
 		frmLosPollosHermanos.getContentPane().add(rdbRostizado);
 		
-		rdbtnRanchero = new JRadioButton("Ranchero");
-		rdbtnRanchero.addActionListener(new ActionListener() {
+		rdbRanchero = new JRadioButton("Ranchero");
+		rdbRanchero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (rdbtnRanchero.isSelected()) {
+				if (rdbRanchero.isSelected()) {
 					Tipo = "Ranchero";
 				}
 				Rec();
 			}
 		});
-		rdbtnRanchero.setFont(new Font("Tahoma", Font.BOLD, 15));
-		rdbtnRanchero.setBounds(78, 214, 152, 21);
-		frmLosPollosHermanos.getContentPane().add(rdbtnRanchero);
+		rdbRanchero.setFont(new Font("Tahoma", Font.BOLD, 15));
+		rdbRanchero.setBounds(78, 214, 152, 21);
+		frmLosPollosHermanos.getContentPane().add(rdbRanchero);
 		
 		ButtonGroup grupo=new ButtonGroup();
 		grupo.add(rdbRostizado);
-		grupo.add(rdbtnRanchero);
+		grupo.add(rdbRanchero);
 		
 		lblTipoDePollo_1 = new JLabel("tipo de pollo que deseas");
 		lblTipoDePollo_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTipoDePollo_1.setBounds(68, 154, 234, 24);
 		frmLosPollosHermanos.getContentPane().add(lblTipoDePollo_1);
 		
-		lblPrecioDeLos = new JLabel("precio de los pollos hermanos:");
-		lblPrecioDeLos.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPrecioDeLos.setBounds(470, 77, 234, 24);
-		frmLosPollosHermanos.getContentPane().add(lblPrecioDeLos);
-		
-		lblPolloRostizado = new JLabel("Pollo Rostizado 80$$");
-		lblPolloRostizado.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPolloRostizado.setBounds(470, 105, 234, 24);
-		frmLosPollosHermanos.getContentPane().add(lblPolloRostizado);
-		
-		lblPolloRanchero = new JLabel("Pollo Ranchero 100$$");
-		lblPolloRanchero.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblPolloRanchero.setBounds(470, 139, 234, 24);
-		frmLosPollosHermanos.getContentPane().add(lblPolloRanchero);
+		txtpnPrecio = new JTextPane();
+		txtpnPrecio.setFont(new Font("Tahoma", Font.BOLD, 13));
+		txtpnPrecio.setText("precio de los pollos hermanos:  Pollo Rostizado 80$                    Pollo Ranchero 100$");
+		txtpnPrecio.setBounds(488, 171, 214, 62);
+		frmLosPollosHermanos.getContentPane().add(txtpnPrecio);
 
 	}
 }
