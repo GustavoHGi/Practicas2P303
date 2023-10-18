@@ -344,42 +344,8 @@ public class Pizzeria {
 		lblNewLabel_6.setBounds(164, 179, 95, 14);
 		frmPizzeria.getContentPane().add(lblNewLabel_6);
 
-		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sliderC.setValue(1);
-				lblOp.setText("");
-				grupo.clearSelection();
-				chRe.setSelected(false);
-				chAg.setSelected(false);
-				chPa.setSelected(false);
-				chAl.setSelected(false);
-				chCer.setSelected(false);
-				BoxEs.setSelectedIndex(0);
-				txtResumen.setText("");
-				lblTotal.setText("");
-<<<<<<< HEAD
-				Precioa=0;
-				Preciob=0;
-				Precioc=0;
-				Preciod=0;
-				total=0;
-				Cantidad=1;
-				precioPizza=0;
-				PrecioDef=0;
-
-=======
-				total = 0;
-				Cantidad = 1;
-				precioPizza = 0;
->>>>>>> d52b4c8b2aa2231891852c50b6943fcec18c87f7
-				
-
-			}
-		});
-		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnBorrar.setBounds(354, 14, 89, 23);
-		frmPizzeria.getContentPane().add(btnBorrar);
+		
+		
 
 		JLabel lblNewLabel_7 = new JLabel("Resumen de Orden");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 12));

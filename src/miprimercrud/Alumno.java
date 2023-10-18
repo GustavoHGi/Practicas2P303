@@ -23,7 +23,22 @@ public boolean insertarAlumno() {
 	}
 	
 }
-
+public boolean eliminarAlumno() {
+	if(da.eliminarAlumno(this.getId())) {
+		return true;
+	}else {
+		return false;
+	}
+	
+}
+public boolean ActualizarAlumno() {
+	if(da.ActualizarAlumno(this)) {
+		return true;
+	}else {
+		return false;
+	}
+	
+}
 
 public Alumno() {
 

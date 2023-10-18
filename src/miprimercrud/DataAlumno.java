@@ -83,4 +83,42 @@ public ArrayList<Alumno> selctAlumnos(){
 	}
 	return listaAlumno;
 }
+public boolean eliminarAlumno(int id) {
+	PreparedStatement ps;
+	try {
+	ps=conectar().prepareStatement("DELETE FROM alumno WHERE id=?");
+	ps.setInt(1,id);
+	ps.execute();
+	return true;
+}catch (SQLException e) {
+	e.printStackTrace();
+	return false;
+}
+	
+}
+public boolean ActualizarAlumno(Alumno a) {
+	PreparedStatement ps;
+	try {
+	ps=conectar().prepareStatement("UPDATE alumno SET numControl=?,Nombre=?,Am=?,Ap=?,FechaN=?,Curp=?,direccion=?,telefono=?,"
+			+ "correo=?,grupo=?,carrera=? WHERE id=?");
+	ps.setString(1,a.getNumcontrol());
+	ps.setString(2,a.getNombre());
+	ps.setString(3,a.getApellidom());
+	ps.setString(4,a.getApellidop());
+	ps.setString(5,a.getCurp());
+	ps.setString(6,a.getFecha());
+	ps.setString(7,a.getDireccion());
+	ps.setString(8,a.getTelefono());
+	ps.setString(9,a.getCorreo());
+	ps.setString(10,a.getGrupo());
+	ps.setString(11,a.getCarrea());
+	ps.setInt(12,a.getId());
+	ps.execute();
+	return true;
+}catch (SQLException e) {
+	e.printStackTrace();
+	return false;
+}
+	
+}
 }

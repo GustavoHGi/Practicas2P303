@@ -17,12 +17,13 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.Container;
 
-
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class WindowAlumno {
 
@@ -44,8 +45,13 @@ public class WindowAlumno {
 	private JScrollPane TablaExel;
 	private JButton btnBorrar;
 	private JButton btnAgregar;
-	private JButton btnBorrartabla;
-	ArrayList<Alumno>listaAlumnos=null;
+	private JButton btnBorrarDato;
+	ArrayList<Alumno> listaAlumnos = null;
+	Alumno x = null;
+	int fila = 0;
+	int id = 0;
+	private JLabel lblID;
+	private JButton btnActualizar;
 
 	/**
 	 * Launch the application.
@@ -63,15 +69,13 @@ public class WindowAlumno {
 		actualizarTabla();
 	}
 
-	
-
 	public void actualizarTabla() {
-		DataAlumno da=new DataAlumno();
-		
+		DataAlumno da = new DataAlumno();
+
 		while (modelo.getRowCount() > 0) {
 			modelo.removeRow(0);
 		}
-		listaAlumnos=da.selctAlumnos();
+		listaAlumnos = da.selctAlumnos();
 		for (Alumno Alumnoss : listaAlumnos) {
 			Object o[] = new Object[12];
 			o[0] = Alumnoss.getId();
@@ -93,10 +97,10 @@ public class WindowAlumno {
 		tblAlumnos.setModel(modelo);
 	}
 
-	
 	private void initialize() {
 		frmCrudAlumno = new JFrame();
-		frmCrudAlumno.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
+		frmCrudAlumno.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(WindowAlumno.class.getResource("/BotonRadeo/cecytem-logo-D0CECF053F-seeklogo.com.png")));
 		frmCrudAlumno.setTitle("Formulario Alumno");
 		frmCrudAlumno.setBounds(100, 100, 1322, 682);
 		frmCrudAlumno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -311,6 +315,26 @@ public class WindowAlumno {
 		frmCrudAlumno.getContentPane().add(TablaExel);
 
 		tblAlumnos = new JTable();
+		tblAlumnos.addMouseListener(new MouseAdapter() {
+
+			public void mouseClicked(MouseEvent e) {
+				fila = tblAlumnos.getSelectedRow();
+				x = listaAlumnos.get(fila);
+				lblID.setText("" + x.getId());
+				;
+				txtNumControl.setText(x.getNumcontrol());
+				txtNombre.setText(x.getNombre());
+				txtApellidoM.setText(x.getApellidom());
+				txtApellidoP.setText(x.getApellidop());
+				txtFeachaNac.setText(x.getFecha());
+				txtCURP.setText(x.getCurp());
+				txtDirrecion.setText(x.getDireccion());
+				txtTelefono.setText(x.getTelefono());
+				txtGrupo.setText(x.getGrupo());
+				txtCarrera.setText(x.getCarrea());
+
+			}
+		});
 		actualizarTabla();
 		TablaExel.setViewportView(tblAlumnos);
 		modelo.addColumn("id");
@@ -332,7 +356,7 @@ public class WindowAlumno {
 		btnAgregar = new JButton("AGREGAR");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
 					Alumno x = new Alumno();
 					x.setNumcontrol(txtNumControl.getText());
 					x.setNombre(txtNombre.getText());
@@ -345,19 +369,21 @@ public class WindowAlumno {
 					x.setCorreo(txtCorreo.getText());
 					x.setGrupo(txtGrupo.getText());
 					x.setCarrea(txtCarrera.getText());
-					
-					
+
 					if (x.insertarAlumno()) {
 						JOptionPane.showMessageDialog(null, "Se Inserto Correctamente");
 						actualizarTabla();
+						limpiarFormulario();
 
 					} else {
 						JOptionPane.showMessageDialog(null, "Error");
 					}
-				
+
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Error");
 				}
 
-			
+			}
 		});
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnAgregar.setBounds(129, 227, 157, 33);
@@ -366,37 +392,97 @@ public class WindowAlumno {
 		btnBorrar = new JButton("Borrar");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtNumControl.setText("");
-				txtNombre.setText("");
-				txtApellidoM.setText("");
-				txtApellidoP.setText("");
-				txtCURP.setText("");
-				txtFeachaNac.setText("");
-				txtDirrecion.setText("");
-				txtTelefono.setText("");
-				txtCorreo.setText("");
-				txtGrupo.setText("");
-				txtCarrera.setText("");
+				limpiarFormulario();
 			}
 		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnBorrar.setBounds(486, 227, 157, 33);
+		btnBorrar.setBounds(328, 227, 157, 33);
 		frmCrudAlumno.getContentPane().add(btnBorrar);
 
-		btnBorrartabla = new JButton("BorrarTabla");
-		btnBorrartabla.addActionListener(new ActionListener() {
+		btnBorrarDato = new JButton("EliminarDato");
+		btnBorrarDato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				actualizarTabla();
+
+				try {
+					int op = JOptionPane.showConfirmDialog(null, "estas seguro de eliminar este registro?", "ELIMINAR",
+							JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+					System.out.println("Opcion: " + op);
+					if (op == 0) {
+						if (x.eliminarAlumno()) {
+							JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
+							actualizarTabla();
+							limpiarFormulario();
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR");
+						}
+					}
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Se elimino correctamente");
+				}
 			}
 		});
-		btnBorrartabla.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnBorrartabla.setBounds(876, 227, 157, 33);
-		frmCrudAlumno.getContentPane().add(btnBorrartabla);
+		btnBorrarDato.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnBorrarDato.setBounds(876, 227, 157, 33);
+		frmCrudAlumno.getContentPane().add(btnBorrarDato);
 
-		JLabel lblID = new JLabel("Id");
+		lblID = new JLabel("Id");
 		lblID.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblID.setBounds(62, 76, 40, 33);
 		frmCrudAlumno.getContentPane().add(lblID);
+
+		btnActualizar = new JButton("Actualizar");
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				try {
+				
+					x.setNumcontrol(txtNumControl.getText());
+					x.setNombre(txtNombre.getText());
+					x.setApellidom(txtApellidoM.getText());
+					x.setApellidop(txtApellidoP.getText());
+					x.setCurp(txtCURP.getText());
+					x.setFecha(txtFeachaNac.getText());
+					x.setDireccion(txtDirrecion.getText());
+					x.setTelefono(txtTelefono.getText());
+					x.setCorreo(txtCorreo.getText());
+					x.setGrupo(txtGrupo.getText());
+					x.setCarrea(txtCarrera.getText());
+
+					if (x.ActualizarAlumno()) {
+						JOptionPane.showMessageDialog(null, "Se actualizo correctamente");
+						actualizarTabla();
+						limpiarFormulario();
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Error");
+					}
+
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Error");
+				}
+
+			}
+
+		});
+		btnActualizar.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnActualizar.setBounds(539, 227, 157, 33);
+		frmCrudAlumno.getContentPane().add(btnActualizar);
+
+	}
+
+	public void limpiarFormulario() {
+		lblID.setText("");
+		txtNumControl.setText("");
+		txtNombre.setText("");
+		txtApellidoM.setText("");
+		txtApellidoP.setText("");
+		txtCURP.setText("");
+		txtFeachaNac.setText("");
+		txtDirrecion.setText("");
+		txtTelefono.setText("");
+		txtCorreo.setText("");
+		txtGrupo.setText("");
+		txtCarrera.setText("");
+
 	}
 }
