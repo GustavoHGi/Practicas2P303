@@ -10,6 +10,12 @@ String password;
 String nombre;
 DataUsuario da=new DataUsuario();
 
+
+
+public Usuario() {
+
+}
+
 public boolean insertarUsuario() {
 	if(da.insertarUsuario(this)) {
 		return true;
@@ -33,10 +39,6 @@ public boolean ActualizarUsuario() {
 		return false;
 	}
 	
-}
-
-public Usuario() {
-
 }
 
 public Usuario(int idUser, String correo, String telefono, String password, String nombre) {

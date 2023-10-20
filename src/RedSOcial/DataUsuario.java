@@ -34,7 +34,7 @@ public Connection conectar() {
 public boolean insertarUsuario(Usuario a) {
 	PreparedStatement ps;
 	try {
-	ps=conectar().prepareStatement("Insert Into Usuario Values(null,?,?,?,?)");
+	ps=conectar().prepareStatement("Insert Into usuario Values(null,?,?,?,?)");
 	ps.setString(1,a.getCorreo());
 	ps.setString(2,a.getTelefono());
 	ps.setString(3,a.getPassword());
@@ -53,7 +53,7 @@ public boolean insertarUsuario(Usuario a) {
 public ArrayList<Usuario> selctUsuario(){
 	ArrayList<Usuario> listaUsuario=new ArrayList<Usuario>();
 	try {
-		PreparedStatement ps=conectar().prepareStatement("SELECT * From USUARIO");
+		PreparedStatement ps=conectar().prepareStatement("SELECT * From usuario");
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()) {
 			Usuario x=new Usuario();
@@ -71,11 +71,11 @@ public ArrayList<Usuario> selctUsuario(){
 	}
 	return listaUsuario;
 }
-public boolean eliminarUsuario(int idUser) {
+public boolean eliminarUsuario(int id) {
 	PreparedStatement ps;
 	try {
 	ps=conectar().prepareStatement("DELETE FROM usuario WHERE idUser=?");
-	ps.setInt(1,idUser);
+	ps.setInt(1,id);
 	ps.execute();
 	return true;
 }catch (SQLException e) {
@@ -87,7 +87,7 @@ public boolean eliminarUsuario(int idUser) {
 public boolean ActualizarUsuario(Usuario a) {
 	PreparedStatement ps;
 	try {
-	ps=conectar().prepareStatement("UPDATE usuario SET correo=?,telefono=?,password=?,nombre=?,WHERE idUser=?");
+	ps=conectar().prepareStatement("UPDATE usuario SET correo=?,telefono=?,password=?,nombre=? WHERE idUser=?");
 	ps.setString(1,a.getCorreo());
 	ps.setString(2,a.getTelefono());
 	ps.setString(3,a.getPassword());

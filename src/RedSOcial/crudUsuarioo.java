@@ -18,9 +18,15 @@ import javax.swing.JTable;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.MessageDigestAlgorithms;
 
 import miprimercrud.Alumno;
 import miprimercrud.DataAlumno;
@@ -43,6 +49,7 @@ public class crudUsuarioo {
 	private JScrollPane tablass;
 	private JTable tblUsuarios;
 	ArrayList<Usuario> listaUsuario = null;
+	DataUsuario da=new DataUsuario();
 	public DefaultTableModel modelo = new DefaultTableModel();
 	Usuario x = null;
 	int fila = 0;
@@ -80,13 +87,13 @@ public class crudUsuarioo {
 			modelo.removeRow(0);
 		}
 		listaUsuario = da.selctUsuario();
-		for (Usuario Usuarioss : listaUsuario) {
+		for (Usuario U: listaUsuario) {
 			Object o[] = new Object[5];
-			o[0] = Usuarioss.getIdUser();
-			o[1] = Usuarioss.getCorreo();
-			o[2] = Usuarioss.getTelefono();
-			o[3] = Usuarioss.getPassword();
-			o[4] = Usuarioss.getNombre();
+			o[0] = U.getIdUser();
+			o[1] = U.getCorreo();
+			o[2] = U.getTelefono();
+			o[3] = U.getPassword();
+			o[4] = U.getNombre();
 			
 
 			modelo.addRow(o);
@@ -193,7 +200,7 @@ public class crudUsuarioo {
 					Usuario x = new Usuario();
 					x.setCorreo(txtCorreo.getText());
 					x.setTelefono(txtTelefono.getText());
-					x.setPassword(txtPassword.getText());
+					x.setPassword(encriptarPassword(txtPassword.getText()));
 					x.setNombre(txtNombre.getText());
 					
 
@@ -217,7 +224,7 @@ public class crudUsuarioo {
 		
 		btnAgregar.setIcon(new ImageIcon(crudUsuarioo.class.getResource("/RedSOcial/OIP.ico")));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnAgregar.setBounds(424, 35, 133, 47);
+		btnAgregar.setBounds(424, 35, 148, 47);
 		CrudUsuario.getContentPane().add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
@@ -225,14 +232,14 @@ public class crudUsuarioo {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					
 					x.setCorreo(txtCorreo.getText());
 					x.setTelefono(txtTelefono.getText());
-					x.setPassword(txtPassword.getText());
+					x.setPassword(encriptarPassword(txtPassword.getText()));
 					x.setNombre(txtNombre.getText());
+					
 
 					if (x.ActualizarUsuario()) {
-						JOptionPane.showMessageDialog(null, "Se actualizo correctamente");
+						JOptionPane.showMessageDialog(null, "Se actualizo Correctamente");
 						actualizarTabla();
 						limpiarFormulario();
 
@@ -249,7 +256,7 @@ public class crudUsuarioo {
 		});
 			
 		btnActualizar.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnActualizar.setBounds(424, 92, 133, 39);
+		btnActualizar.setBounds(424, 92, 148, 39);
 		CrudUsuario.getContentPane().add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -258,12 +265,13 @@ public class crudUsuarioo {
 				try {
 					int op = JOptionPane.showConfirmDialog(null, "estas seguro de eliminar este registro?", "ELIMINAR",
 							JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-					System.out.println("Opcion: " + op);
+					
 					if (op == 0) {
 						if (x.eliminarUsuario()) {
 							JOptionPane.showMessageDialog(null, "Se elimino Correctamente");
 							actualizarTabla();
 							limpiarFormulario();
+							x=null;
 						} else {
 							JOptionPane.showMessageDialog(null, "ERROR");
 						}
@@ -276,7 +284,7 @@ public class crudUsuarioo {
 				
 			
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnEliminar.setBounds(424, 153, 133, 39);
+		btnEliminar.setBounds(424, 153, 148, 39);
 		CrudUsuario.getContentPane().add(btnEliminar);
 		
 		btnBorrar = new JButton("Borrar");
@@ -286,7 +294,7 @@ public class crudUsuarioo {
 			}
 		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnBorrar.setBounds(424, 214, 133, 39);
+		btnBorrar.setBounds(424, 214, 148, 39);
 		CrudUsuario.getContentPane().add(btnBorrar);
 		
 		tablass = new JScrollPane();
@@ -327,6 +335,32 @@ public class crudUsuarioo {
 		txtNombre.setText("");
 		
 
+	}
+	public String encriptarPassword (String password) {
+		MessageDigest md;
+		byte[] encoded=null;
+		try {
+			md = MessageDigest.getInstance(MessageDigestAlgorithms.MD5);
+			md.update(password.getBytes());
+		      byte[] digest = md.digest();
+
+		      // Se escribe byte a byte en hexadecimal
+		      for (byte b : digest) {
+		         //System.out.print(Integer.toHexString(0xFF & b));
+		      }
+		      System.out.println();
+
+		      // Se escribe codificado base 64. Se necesita la librería
+		      // commons-codec-x.x.x.jar de Apache
+		      encoded = Base64.encodeBase64(digest);
+		      //System.out.println(new String(encoded));
+			
+			
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return new String(encoded);
 	}
 	
 }
